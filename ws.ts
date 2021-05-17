@@ -5,11 +5,15 @@ import {
 
 import EventEmitter from 'https://deno.land/x/events@v1.0.0/mod.ts'
 
-const events = new EventEmitter() // https://github.com/deno-library/events
+const ee = new EventEmitter()
 
-events.on('send', (a) => {
-	console.log('sent websocket message: ', a)
-})
+function listener(num: number, bool: boolean): void {
+	console.log(num, bool)
+}
+
+// const events = new EventEmitter() // https://github.com/deno-library/events
+
+ee.on('message', listener)
 
 interface Brodcast {
 	name: string
@@ -21,7 +25,7 @@ let sockets = new Map<string, WebSocket>()
 let index = 0
 
 const brodcastEvent = (brd: Brodcast) => {
-	events.emit('send', index)
+	ee.emit('message', index, true)
 
 	sockets.forEach((ws: WebSocket) => {
 		ws.send(JSON.stringify(brd))
@@ -41,10 +45,9 @@ const wsConn = async (ws: WebSocket) => {
 		if (typeof wse === 'string') {
 			let parsedWse = JSON.parse(wse.toString())
 			brodcastEvent(parsedWse)
+			index++
 		}
 	}
-
-	index++
 }
 
 export { wsConn }

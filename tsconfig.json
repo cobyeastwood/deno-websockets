@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"target": "es2017",
+		"module": "esnext",
 		"plugins": [
 			{
 				"name": "typescript-deno-plugin",

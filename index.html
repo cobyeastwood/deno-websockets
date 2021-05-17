@@ -121,8 +121,7 @@
 			})
 
 			// output event to dom
-			const outputMessage = (data) => {
-                const decoder = new TextDecoder()
+			const outputMessage = ({data}) => {
 
                 const { name, mssg } = JSON.parse(data)
 
