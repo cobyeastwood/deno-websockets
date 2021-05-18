@@ -39,10 +39,12 @@ class Message {
 		let rootNode = this.root
 
 		while (rootNode.next) {
-			rootNode = this.root.next
-		}
+			rootNode = rootNode.next
 
-		this.root.next = newNode
+			if (!rootNode.next) {
+				this.root = newNode
+			}
+		}
 	}
 
 	moveUpwards(loops: number) {
@@ -70,5 +72,8 @@ m.addNode('test')
 m.addNode('test2')
 m.addNode('test3')
 m.addNode('test4')
+m.addNode('test5')
 
-m.moveUpwards(10)
+console.log(m.root)
+
+// m.moveUpwards(10)
